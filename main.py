@@ -1,18 +1,21 @@
 import requests
 import datetime
 import smtplib
+import tkinter as tk
 #Welcome
 #All the variables and constants
 MY_EMAIL="Mathudeals@gmail.com"
 MY_PASS="ngzjeqhpuqfwbqja"
 
-STOCK_NAME = "AAPL"
-COMPANY_NAME = "Apple Inc"
+STOCK_NAME = "ATD.TO"
+COMPANY_NAME = "COUCHE TARD"
 
 MY_API_NEWS = "5d12d240957247eeb7c1f0055528a9c1"
 MY_API_STOCKS = "PU5549K5KHK695KN"
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
+
+
 
 params = {
     "function": "TIME_SERIES_DAILY",
@@ -51,7 +54,7 @@ if percentage > 0:
         "apikey": MY_API_NEWS,
     }
     #Resquest to API News to get all top news
-    response_news = requests.get(url = "https://newsapi.org/v2/everything",params=params)
+    response_news = requests.get(url = "https://newsapi.org/v2/everything" ,params=params)
     news_dic = response_news.json()
 
     #Keep the top 3 news in a list of dictionaries of title and description
@@ -73,7 +76,7 @@ if percentage > 0:
     #Sends all 3 articles Seperately
     for article in three_news:
         #Prepare message to send by email
-        msg =f"Subject: {COMPANY_NAME} Stock Update\n\n {STOCK_NAME} :{emo}\nHeadline: {article['title']}\nBrief: {article['description']}"
+        msg =f"Subject: {COMPANY_NAME} Stock Update\n\n {STOCK_NAME} :{emo}\n Headline: {article['title']}\nBrief: {article['description']}"
         msg = msg.encode("utf-8")
 
         #Send email to User
